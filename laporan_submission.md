@@ -75,6 +75,107 @@ Dengan pendekatan ini, kami berharap dapat membangun sistem prediksi kelulusan y
 
 ## 📊 Data Understanding
 
+Dataset yang digunakan berjudul **"Students Performance in Exams"**, bersumber dari [Kaggle Datasets](https://www.kaggle.com/datasets/spscientist/students-performance-in-exams).
+
+Dataset ini memuat informasi latar belakang siswa serta hasil ujian dalam tiga mata pelajaran: matematika, membaca, dan menulis.
+
+---
+
+### 📐 Ukuran Dataset
+
+- Jumlah baris: **1.000 siswa**
+- Jumlah kolom: **8 fitur**
+- Tidak terdapat **missing value** pada dataset
+
+---
+
+### 🧾 Penjelasan Setiap Fitur
+
+| Nama Fitur | Tipe | Deskripsi |
+|------------|------|-----------|
+| `gender` | Kategorikal | Jenis kelamin siswa (`female` atau `male`) |
+| `race/ethnicity` | Kategorikal | Kelompok etnis siswa (A, B, C, D, E) |
+| `parental level of education` | Kategorikal | Pendidikan tertinggi orang tua (misalnya: `high school`, `bachelor’s degree`, dll.) |
+| `lunch` | Kategorikal | Jenis makan siang yang diterima (`standard` atau `free/reduced`) |
+| `test preparation course` | Kategorikal | Status keikutsertaan siswa dalam kursus persiapan ujian |
+| `math score` | Numerik | Nilai ujian matematika (0–100) |
+| `reading score` | Numerik | Nilai ujian membaca (0–100) |
+| `writing score` | Numerik | Nilai ujian menulis (0–100) |
+
+---
+
+### 📊 Visualisasi Distribusi Fitur Kategorikal
+
+- Distribusi fitur-fitur kategorikal ditampilkan pada grafik berikut:
+
+#### ✅ Distribusi Gender
+
+![Distribusi Gender](path/to/distribusi_gender.png)
+
+#### ✅ Distribusi Etnis
+
+![Distribusi Etnis](path/to/distribusi_ethnic.png)
+
+#### ✅ Distribusi Jenis Makan Siang
+
+![Distribusi Lunch](path/to/distribusi_lunch.png)
+
+#### ✅ Distribusi Pendidikan Orang Tua
+
+![Distribusi Pendidikan Orang Tua](path/to/distribusi_parent_edu_level.png)
+
+#### ✅ Distribusi Kursus Persiapan Ujian
+
+![Distribusi Kursus Ujian](path/to/distribusi_test_prep.png)
+
+---
+
+### 📉 Visualisasi Distribusi Fitur Numerik
+
+- Distribusi nilai siswa pada setiap mata pelajaran terlihat hampir normal.
+
+#### ✅ Distribusi Nilai Matematika
+
+![Distribusi Math Score](path/to/distribusi_math.png)
+
+#### ✅ Distribusi Nilai Membaca
+
+![Distribusi Reading Score](path/to/distribusi_reading.png)
+
+#### ✅ Distribusi Nilai Menulis
+
+![Distribusi Writing Score](path/to/distribusi_writing.png)
+
+---
+
+### 🔗 Korelasi Antar Skor
+
+- **Reading** dan **Writing Score** memiliki korelasi tinggi (**> 0.9**)
+- **Math Score** memiliki korelasi sedang terhadap dua skor lainnya
+
+![Korelasi Skor](path/to/korelasi_antar_skor.png)
+
+---
+
+### 📌 Insight Awal
+
+- **Gender**:
+  - Perempuan unggul dalam membaca & menulis
+  - Laki-laki sedikit unggul di matematika
+
+- **Kursus Persiapan Ujian**:
+  - Siswa yang mengikuti kursus cenderung meraih skor lebih tinggi di semua bidang
+
+- **Jenis Makan Siang**:
+  - Siswa dengan makan siang standar mencatatkan skor lebih tinggi dibanding yang menerima makan gratis/berkurang
+
+- **Pendidikan Orang Tua**:
+  - Terdapat kecenderungan bahwa semakin tinggi pendidikan orang tua, semakin tinggi skor akademik siswa
+
+---
+
+Bagian ini menjadi fondasi awal untuk eksplorasi lebih lanjut sebelum dilakukan *data preprocessing* dan *modeling*.
+
 Dataset yang digunakan berjudul **"Students Performance in Exams"** yang bersumber dari [Kaggle Datasets](https://www.kaggle.com/datasets/spscientist/students-performance-in-exams).
 Dataset ini memuat informasi mengenai latar belakang siswa serta hasil ujian matematika, membaca, dan menulis.
 
