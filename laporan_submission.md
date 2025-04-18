@@ -294,7 +294,10 @@ Langkah-langkah ini memastikan bahwa data yang digunakan untuk pelatihan dan pen
 
 ## 🤖 Modeling
 
-Pada tahap ini, dilakukan pembangunan dan evaluasi berbagai model machine learning untuk menyelesaikan permasalahan klasifikasi biner: prediksi kelulusan siswa (`pass = 1` untuk lulus, `0` untuk tidak lulus). Pemodelan dibagi menjadi dua tahap: **baseline modeling** dan **model improvement (tuning)**.
+Pada tahap ini, dilakukan pembangunan beberapa model machine learning untuk menyelesaikan permasalahan klasifikasi biner: memprediksi kelulusan siswa (`pass = 1` untuk lulus, `0` untuk tidak lulus). Proses modeling terdiri atas dua tahap:
+
+1. **Baseline Modeling** — menggunakan model sederhana tanpa tuning.
+2. **Model Improvement (Hyperparameter Tuning)** — pencarian parameter terbaik untuk meningkatkan performa.
 
 ---
 
@@ -302,36 +305,12 @@ Pada tahap ini, dilakukan pembangunan dan evaluasi berbagai model machine learni
 
 #### 📌 Cara Kerja
 
-Logistic Regression adalah algoritma klasifikasi linier yang menggunakan fungsi sigmoid untuk memetakan input menjadi probabilitas antara 0 dan 1. Model ini menghitung bobot untuk setiap fitur, dan menentukan kelas berdasarkan threshold (biasanya 0.5).
+Logistic Regression adalah model klasifikasi linier yang memetakan input ke probabilitas menggunakan fungsi sigmoid. Kelas ditentukan berdasarkan ambang batas (biasanya 0.5).
 
 #### ⚙️ Parameter
 
-- Menggunakan **parameter default** dari `sklearn.linear_model.LogisticRegression`.
-- `random_state=42` untuk reproducibility.
-
-#### 📈 Evaluasi
-
-- **Akurasi:** 97%
-- **Classification Report:**
-
-  ```
-                precision    recall  f1-score   support
-             0       0.98      0.96      0.97       108
-             1       0.96      0.98      0.97        92
-      accuracy                           0.97       200
-  ```
-
-- **Confusion Matrix:**
-
-  ```
-  [[104   4]
-   [  2  90]]
-  ```
-
-#### 📝 Insight
-
-- Model sederhana namun sangat efektif sebagai baseline.
-- Hanya 6 kesalahan prediksi dari 200 data.
+- Menggunakan parameter **default** dari `sklearn.linear_model.LogisticRegression`
+- `random_state=42` untuk reproducibility
 
 ---
 
@@ -339,36 +318,12 @@ Logistic Regression adalah algoritma klasifikasi linier yang menggunakan fungsi 
 
 #### 📌 Cara Kerja
 
-Decision Tree bekerja dengan membagi data secara rekursif berdasarkan fitur yang paling mengurangi impurity (seperti Gini Index atau Entropy). Setiap percabangan (node) merepresentasikan keputusan berdasarkan nilai fitur, dan hasil klasifikasi ditemukan di daun (leaf node).
+Decision Tree memisahkan data secara rekursif berdasarkan fitur yang paling mengurangi impurity (Gini/Entropy). Setiap node adalah aturan keputusan, dan leaf node adalah prediksi kelas.
 
 #### ⚙️ Parameter
 
-- Menggunakan **parameter default** dari `sklearn.tree.DecisionTreeClassifier`.
-- `random_state=42` digunakan untuk konsistensi hasil.
-
-#### 📈 Evaluasi
-
-- **Akurasi:** 96%
-- **Classification Report:**
-
-  ```
-                precision    recall  f1-score   support
-             0       0.97      0.95      0.96       108
-             1       0.95      0.97      0.96        92
-      accuracy                           0.96       200
-  ```
-
-- **Confusion Matrix:**
-
-  ```
-  [[103   5]
-   [  3  89]]
-  ```
-
-#### 📝 Insight
-
-- Performa sangat baik dan mendekati Logistic Regression.
-- Rentan overfitting jika tidak dituning (karena pakai parameter default).
+- Parameter **default** dari `sklearn.tree.DecisionTreeClassifier`
+- `random_state=42`
 
 ---
 
@@ -382,11 +337,11 @@ Setelah baseline model, dilakukan tuning menggunakan **GridSearchCV** untuk meni
 
 #### 📌 Cara Kerja
 
-Random Forest adalah ensemble dari banyak Decision Tree. Setiap pohon dilatih dengan subset acak dari data dan fitur (bagging), lalu hasilnya digabungkan (majority vote). Ini meningkatkan akurasi dan mengurangi overfitting.
+Random Forest merupakan ensemble dari banyak pohon keputusan (Decision Tree) yang masing-masing dilatih dengan subset data berbeda, dan digabungkan dengan voting.
 
 #### ⚙️ Parameter Tuning
 
-Tuning dilakukan menggunakan `GridSearchCV` 5-fold dengan parameter grid:
+Grid:
 
 ```python
 {
@@ -397,7 +352,7 @@ Tuning dilakukan menggunakan `GridSearchCV` 5-fold dengan parameter grid:
 }
 ```
 
-#### ✅ Best Parameters
+Best Parameters:
 
 ```python
 RandomForestClassifier(
@@ -409,27 +364,17 @@ RandomForestClassifier(
 )
 ```
 
-#### 📈 Evaluasi
-
-- **Akurasi:** 98%
-- **Confusion Matrix:**
-
-  ```
-  [[107   1]
-   [  2  90]]
-  ```
-
 ---
 
 ### 4. ⚡ XGBoost Classifier (Tuned)
 
 #### 📌 Cara Kerja
 
-XGBoost adalah algoritma gradient boosting yang membangun model prediktif secara bertahap. Setiap pohon baru mempelajari sisa error dari pohon sebelumnya menggunakan pendekatan optimasi berbasis gradien.
+XGBoost membangun model secara bertahap, di mana setiap model baru fokus untuk memperbaiki kesalahan dari model sebelumnya, menggunakan teknik boosting berbasis gradien.
 
 #### ⚙️ Parameter Tuning
 
-Tuning dilakukan menggunakan `GridSearchCV` 5-fold dengan grid:
+Grid:
 
 ```python
 {
@@ -440,7 +385,7 @@ Tuning dilakukan menggunakan `GridSearchCV` 5-fold dengan grid:
 }
 ```
 
-#### ✅ Best Parameters
+Best Parameters:
 
 ```python
 XGBClassifier(
@@ -454,94 +399,79 @@ XGBClassifier(
 )
 ```
 
-#### 📈 Evaluasi
-
-- **Akurasi:** 98%
-- **Confusion Matrix:**
-
-  ```
-  [[107   1]
-   [  3  89]]
-  ```
-
 ---
 
-### 🏁 Kesimpulan Pemodelan
-
-- Logistic Regression dan Decision Tree bekerja sangat baik sebagai baseline model.
-- Random Forest dan XGBoost menunjukkan performa yang sangat tinggi setelah dilakukan tuning.
-- **XGBoost dipilih sebagai model terbaik** karena:
-  - Akurasi tinggi dan konsisten (98%)
-  - Performa seimbang antar kelas
-  - Lebih stabil dan scalable untuk dataset besar
-
----
+> 📝 *Catatan:* Hasil evaluasi lengkap disajikan pada section **Evaluation**.
 
 ## 📊 Evaluation
 
-Tahap evaluasi tidak hanya berfokus pada performa teknis model machine learning, tetapi juga pada **sejauh mana model ini menjawab kebutuhan bisnis**, yaitu: mendeteksi dini mahasiswa yang berisiko tidak lulus, memahami faktor-faktor penyebabnya, dan menyediakan dasar intervensi yang akurat.
+Tahap evaluasi ini tidak hanya bertujuan mengukur performa model secara teknis, tetapi juga untuk memastikan bahwa **model yang dibangun benar-benar menjawab kebutuhan bisnis (Business Understanding)** yang telah didefinisikan sebelumnya.
 
 ---
 
-### 🎯 Keterkaitan dengan Problem Statements
+### 🔍 Perbandingan Performa Model
+
+Evaluasi dilakukan dengan menggunakan metrik klasifikasi berikut:
+
+- **Accuracy**: Persentase prediksi benar
+- **Precision**: Proporsi prediksi positif yang benar
+- **Recall**: Proporsi kasus positif yang berhasil dikenali
+- **F1-Score**: Harmonik dari precision dan recall
+- **Confusion Matrix**: Matriks hasil prediksi aktual vs prediksi
+
+| Model                   | Accuracy | Precision (class 1) | Recall (class 1) | F1-Score (class 1) |
+|-------------------------|----------|----------------------|------------------|--------------------|
+| Logistic Regression     | 97%      | 0.96                 | 0.98             | 0.97               |
+| Decision Tree           | 96%      | 0.95                 | 0.97             | 0.96               |
+| Random Forest (Tuned)   | 98%      | 0.99                 | 0.98             | 0.98               |
+| XGBoost (Tuned)         | 98%      | 0.99                 | 0.97             | 0.98               |
+
+---
+
+### 📈 Confusion Matrix Model Terbaik (XGBoost)
+
+```
+[[107   1]
+ [  3  89]]
+```
+
+---
+
+### 🎯 Evaluasi Terhadap Business Understanding
 
 #### 1. Apakah model berhasil memprediksi kelulusan mahasiswa secara akurat?
 
 ✅ **Ya.**  
-Model XGBoost yang telah dituning berhasil mencapai **akurasi 98%**, dengan precision dan recall yang seimbang. Ini menunjukkan bahwa sistem prediktif dapat dengan andal memisahkan mahasiswa yang berpotensi lulus dan tidak lulus berdasarkan nilai ujian dan latar belakangnya.
+Model XGBoost menunjukkan akurasi dan generalisasi yang sangat tinggi (98%), menjadikannya andalan untuk prediksi kelulusan berbasis data.
 
 #### 2. Apakah model mampu mengungkap faktor-faktor yang memengaruhi kelulusan?
 
 ✅ **Ya.**  
-Melalui analisis fitur, ditemukan bahwa skor `math`, `reading`, dan `writing` merupakan prediktor utama, diikuti oleh `test preparation course`, `parental level of education`, dan `lunch`. Ini mendukung tujuan untuk memahami faktor sosial dan akademik yang berpengaruh.
+Fitur yang paling berpengaruh di antaranya: skor `math`, `reading`, `writing`, serta `test preparation course`. Ini sesuai dengan asumsi awal bahwa performa akademik dan dukungan belajar berpengaruh signifikan.
 
 #### 3. Apakah solusi prediktif ini dapat digunakan untuk merancang intervensi yang efektif?
 
 ✅ **Ya.**  
-Dengan hasil klasifikasi yang akurat, institusi dapat mengembangkan sistem **early warning** yang mendeteksi mahasiswa berisiko dan memberikan bimbingan tambahan atau dukungan psikologis.
+Institusi dapat memanfaatkan hasil prediksi untuk:
+
+- Mengidentifikasi siswa yang berisiko tidak lulus
+- Memberikan mentoring atau remedial
+- Mengalokasikan sumber daya bimbingan belajar
 
 ---
 
-### 📈 Hasil Evaluasi Model Terbaik (XGBoost)
+### 🧠 Dampak Bisnis dan Manfaat Praktis
 
-- **Akurasi:** 98%
-- **Precision:** Tinggi untuk kedua kelas
-- **Recall:** Seimbang, baik untuk kelas lulus maupun tidak lulus
-- **Confusion Matrix:**
-
-  ```
-  [[107   1]
-   [  3  89]]
-  ```
-
-Model tidak hanya unggul secara teknis, tapi juga **mampu merepresentasikan kebutuhan nyata institusi pendidikan**.
+- 🎯 **Intervensi Dini:** Sistem prediksi dapat digunakan sebagai alat bantu untuk menyaring siswa yang membutuhkan perhatian lebih sejak awal semester.
+- 🎯 **Efektivitas Program:** Terbukti bahwa kursus persiapan ujian berdampak positif pada skor siswa.
+- 🎯 **Pengambilan Keputusan Berbasis Data:** Model mendukung pendekatan berbasis data dalam perencanaan akademik dan pengelolaan risiko kelulusan.
 
 ---
 
-### 📌 Dampak Terhadap Goals
+### ✅ Kesimpulan
 
-| Goals Proyek                                                                 | Status       | Keterangan                                                                 |
-|------------------------------------------------------------------------------|--------------|-----------------------------------------------------------------------------|
-| Membangun model klasifikasi kelulusan                                        | ✅ Tercapai  | Akurasi tinggi, performa stabil                                             |
-| Mengidentifikasi fitur paling berpengaruh                                    | ✅ Tercapai  | Skor akademik dan program persiapan ujian sangat menentukan                |
-| Menyediakan dasar untuk intervensi berbasis data                             | ✅ Tercapai  | Model siap digunakan untuk sistem early warning dan alokasi sumber daya    |
-
----
-
-### 💡 Dampak Bisnis dan Manfaat Praktis
-
-- 📌 **Intervensi Dini:** Institusi dapat mengenali mahasiswa dengan risiko tidak lulus sejak awal dan memberikan program remedial atau mentoring.
-- 📌 **Efektivitas Program:** Diketahui bahwa `test preparation course` berdampak signifikan pada kelulusan — mendukung perluasan program ini.
-- 📌 **Alokasi Sumber Daya:** Lembaga pendidikan bisa lebih cermat dalam merancang kebijakan bimbingan akademik dan pendampingan berdasarkan prediksi model.
-
----
-
-### ✅ Kesimpulan Evaluasi
-
-Model machine learning yang dibangun—terutama XGBoost—tidak hanya unggul secara teknis, tetapi juga:
-
-- **Menjawab setiap problem statement yang diajukan**
-- **Mencapai semua goals bisnis secara terukur**
-- **Memberikan solusi yang berdampak langsung pada pengambilan keputusan pendidikan**
+- Seluruh model menunjukkan performa baik, namun **XGBoost menjadi model terbaik secara teknis dan bisnis**.
+- Evaluasi menunjukkan bahwa semua **problem statement dan business goals berhasil dicapai**.
+- Solusi yang dirancang terbukti **berdampak nyata dalam konteks pendidikan** dan dapat langsung diterapkan di lapangan.
 
 Dengan demikian, sistem ini memiliki potensi besar untuk diimplementasikan sebagai bagian dari *Decision Support System* yang strategis di lingkungan perguruan tinggi.
