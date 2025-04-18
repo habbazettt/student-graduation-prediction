@@ -110,23 +110,23 @@ Dataset ini memuat informasi latar belakang siswa serta hasil ujian dalam tiga m
 
 #### ✅ Distribusi Gender
 
-![Distribusi Gender](path/to/distribusi_gender.png)
+![Distribusi Gender](https://github.com/user-attachments/assets/286e810d-7833-47a0-b228-1156fa73559b)
 
 #### ✅ Distribusi Etnis
 
-![Distribusi Etnis](path/to/distribusi_ethnic.png)
+![Distribusi Etnis](https://github.com/user-attachments/assets/e1ffc957-0a0a-408b-8335-7aead83b1ded)
 
 #### ✅ Distribusi Jenis Makan Siang
 
-![Distribusi Lunch](path/to/distribusi_lunch.png)
+![Distribusi Lunch](https://github.com/user-attachments/assets/71f2b9ab-c681-46bf-a9a0-fe431d003ee3)
 
 #### ✅ Distribusi Pendidikan Orang Tua
 
-![Distribusi Pendidikan Orang Tua](path/to/distribusi_parent_edu_level.png)
+![Distribusi Pendidikan Orang Tua](https://github.com/user-attachments/assets/e1bc45c0-e59c-46d1-b3d9-bc36117f5f05)
 
 #### ✅ Distribusi Kursus Persiapan Ujian
 
-![Distribusi Kursus Ujian](path/to/distribusi_test_prep.png)
+![Distribusi Kursus Ujian](https://github.com/user-attachments/assets/247c760c-e5bd-4fbd-86a0-08122a7951f2)
 
 ---
 
@@ -136,15 +136,15 @@ Dataset ini memuat informasi latar belakang siswa serta hasil ujian dalam tiga m
 
 #### ✅ Distribusi Nilai Matematika
 
-![Distribusi Math Score](path/to/distribusi_math.png)
+![Distribusi Math Score](https://github.com/user-attachments/assets/218a4c50-e185-4b23-9cf0-83485afff011)
 
 #### ✅ Distribusi Nilai Membaca
 
-![Distribusi Reading Score](path/to/distribusi_reading.png)
+![Distribusi Reading Score](https://github.com/user-attachments/assets/c07d5a07-c80d-4cca-b9c6-185701c5a80f)
 
 #### ✅ Distribusi Nilai Menulis
 
-![Distribusi Writing Score](path/to/distribusi_writing.png)
+![Distribusi Writing Score](https://github.com/user-attachments/assets/a8304398-f43a-4f00-a00c-6c4d7af99884)
 
 ---
 
@@ -153,7 +153,7 @@ Dataset ini memuat informasi latar belakang siswa serta hasil ujian dalam tiga m
 - **Reading** dan **Writing Score** memiliki korelasi tinggi (**> 0.9**)
 - **Math Score** memiliki korelasi sedang terhadap dua skor lainnya
 
-![Korelasi Skor](path/to/korelasi_antar_skor.png)
+![Korelasi Skor](https://github.com/user-attachments/assets/42a8c0c8-3226-415f-ab1c-81906a8ba01b)
 
 ---
 
